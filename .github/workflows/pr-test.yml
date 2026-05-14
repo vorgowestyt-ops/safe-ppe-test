@@ -1,7 +1,7 @@
 name: PR Test Pipeline
 
 on:
-  pull_request:
+  pull_request_target:
     branches: [ "main" ]
 
 jobs:
@@ -9,12 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # THE FATAL FLAW: Explicitly checking out untrusted attacker code while in a privileged context
+          ref: ${{ github.event.pull_request.head.sha }} 
+          
       - uses: dart-lang/setup-dart@v1
       
       - name: Install dependencies
         run: dart pub get
         
-      # The Fatal Flaw: Passing secrets into an untrusted test environment
       - name: Run Tests
         env:
           API_KEY: ${{ secrets.LEGACY_API_KEY }}
