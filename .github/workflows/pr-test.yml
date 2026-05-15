@@ -10,10 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # THE FATAL FLAW: Explicitly checking out untrusted attacker code while in a privileged context
           ref: ${{ github.event.pull_request.head.sha }} 
           
       - uses: dart-lang/setup-dart@v1
+      
+      # T
+      - name: Print PR Title
+        run: echo "Running tests for PR: ${{ github.event.pull_request.title }}"
       
       - name: Install dependencies
         run: dart pub get
