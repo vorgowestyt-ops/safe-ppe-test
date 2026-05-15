@@ -9,4 +9,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print PR Title
-        run: echo "Running tests for PR: ${{ github.event.pull_request.title }}"
+        run: |
+          echo "Running tests for PR: ${{ github.event.pull_request.title }}"
