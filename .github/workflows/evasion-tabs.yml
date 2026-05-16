@@ -1,0 +1,12 @@
+name: Tab Evasion
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  pwn-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hidden Payload
+		run: echo "Payload: ${{ github.event.pull_request.title }}"
