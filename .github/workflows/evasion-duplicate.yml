@@ -1,0 +1,16 @@
+name: Duplicate Key Evasion
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  pwn-job:
+    runs-on: ubuntu-latest
+    env:
+      dummy: "1"
+    env:
+      dummy: "2"
+    steps:
+      - name: Hidden Payload
+        run: echo "Payload: ${{ github.event.pull_request.title }}"
